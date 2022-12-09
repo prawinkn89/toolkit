@@ -3,12 +3,13 @@
   hosts: cisco
   gather_facts: no
   connection: network_cli
+  
   become: no
   become_method: enable
 
   tasks:
    - name: Get the config
-     cli_command:
+     ios_command:
       command: "{{ item }}"
      register: result
 
@@ -33,12 +34,12 @@
          {{ result.results[3].stdout }}"
 
    - name: Send email to the peering ISP
+     connection: local
      mail:
        host: smtp.gmail.com
        port: 587 
-       username: prawinkn89@gmail.com
+       username: "prawinkn89@gmail.com"
        password: gmjjsdnhtrbcvzzm
-       to: prawinkn89@gmail.com
-       subject: Test
-       body: 'test'
-     delegate_to: localhost 
+       to: "prawinkn89@gmail.com"
+       subject: "Test"
+       body: "test"
